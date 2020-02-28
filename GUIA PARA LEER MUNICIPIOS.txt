@@ -1,0 +1,35 @@
+022019041010400199Abla
+
+02-2019-04-1-01-04-001-99-Abla
+
+1 - Número de vuelta
+01 - Código de Comunidad Autónoma
+04- Código INE de la Provincia
+001 - Código INE del Municipio
+99 - Número de distrito municipal (cuando es 99 es porque es el total municipal)
+Abla - Nombre del municipio
+
+
+001301300000001235000020000101400001014000000000000000000000342000005600000000900000005000007540000000000000000000S
+
+0-013-013-000-00001235-00002-00001014-00001014-00000000-00000000-00000342-00000560-00000009-00000005-00000754-000-00000000-00000000-S
+
+0 - Código del Distrito Electoral cuando corresponda o 0 en elecciones que no tienen este tipo de circunscripción.
+013 - Código del Partido Judicial
+013 - Código de la Diputación Provincial
+000 - Código de la comarca
+00001235 - Población de derecho
+00002 - Número de mesas
+00001014 - Censo del INE
+00001014 - Censo del escrutinio
+00000000 - Censo CERE en escrutinio (Residentes extranjeros)
+00000000 - Total votantes C.E.R.E. (Residentes Extranjeros)
+00000342 - Votantes del primer avance de participación
+00000560 - Votantes del segundo avance de participación
+00000009 - Votos en blanco
+00000005 - Votos nulos
+00000754 - Votos a candidaturas
+000 - Número de ‘Escaños’ a distribuir cuando el municipio es la circunscripción electoral
+00000000 - Votos afirmativos en Referéndum o ceros en otros procesos electorales
+00000000 - Votos negativos en Referéndum o ceros en otros procesos electorales
+S - Datos oficiales (Si/No)
