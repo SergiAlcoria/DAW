@@ -1,0 +1,56 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.utils.IOUtils;
+public class ExportarZIP {
+    public static void main(String[] args) {
+        //Creamos una carpeta 'Zips'
+        File zips = new File("./Zips");
+        //Creamos una carpeta 'Output'
+        File output = new File("./Output");
+        //Si la carpeta 'zips' no existe la crearemos
+        if (!zips.exists()) zips.mkdir();
+        //Si la carpeta 'output' no existe la crearemos
+        if (!output.exists()) output.mkdir();
+// Create zip file stream.
+        //for a la izquierda de los dos puntos está el tipo de archivo y su nombre (la variable) y a la derecha está
+        // la lista de archivos que recorrerá buscando aquellos achivos de tipo File y los meterá en la variable f para tratarlo
+        for (File f:zips.listFiles()) {
+            try (
+                    ZipArchiveInputStream fitxerZip = new ZipArchiveInputStream(
+                            new BufferedInputStream(new FileInputStream(f)))) {
+                //Crearemos una carpeta por cada zip que exista con el nombre del zip quitando la extensión
+                // output.getPath obtiene la ubicación de la carpeta output y dentro de esta se creará la carpeta
+                // f.getName().replace para copiar el nombre del archivo .zip reemplazando el '.zip' por ningún caracter
+                File of = new File(output.getPath() + "/" + f.getName().replace(".zip",""));
+                //Si la carpeta ya existía entonces se borrará para crearla con los archivos descomprimidos
+                if (of.exists()) of.delete();
+                of.mkdir();
+                //Introducimos la variable que entrará un archivo .zip
+                ZipArchiveEntry entrada;
+                //Mientras dentro del archivo .zip que se esté tratando sigan habiendo archivos entonces se seguirá ejecutando
+                //el bucle de descompresión
+                while ((entrada = fitxerZip.getNextZipEntry()) != null) {
+                    // Print values from entry.
+                    //Nos dará el nombre del archivo
+                    System.out.println(entrada.getName());
+                    System.out.println(entrada.getMethod()); // ZipEntry.DEFLATED is int 8
+                    //Se creará un nuevo archivo en la ubicación de la carpeta descomprimida con el nombre del archivo
+                    File file = new File(of.getPath() + "/" + entrada.getName());
+                    System.out.println("Unzipping - " + file);
+
+                    // Se copia el contenido del archivo
+                    IOUtils.copy(fitxerZip, new FileOutputStream(file));
+
+                }
+            } catch (
+                    IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
