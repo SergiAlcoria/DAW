@@ -35,3 +35,23 @@ public class Insert {
         }
     }
 }
+
+
+
+//Insertar datos//
+private static void readCsvUsingLoad()
+    {
+        try (Connection connection = DBConnection.getConnection())
+        {
+                String loadQuery = "LOAD DATA LOCAL INFILE '" + "C:\\upload.csv" + "' INTO TABLE txn_tbl FIELDS TERMINATED BY ','" + " LINES TERMINATED BY '\n' (txn_amount, card_number, terminal_id) ";
+                System.out.println(loadQuery);
+                Statement stmt = connection.createStatement();
+                stmt.execute(loadQuery);
+        }
+        catch (Exception e)
+        {
+                e.printStackTrace();
+        }
+    }
+ 
+}
