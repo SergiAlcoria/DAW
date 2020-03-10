@@ -1,0 +1,27 @@
+02197706102999Aragón                                            011696500189400812881008128810000000000000000000000000000000000002451000110330064958200001400000000000000N
+
+02-1977-06-1-02-99-9-Aragón(fins posicio 64)-01169650-01894-00812881-0000000-00000000-00000000-00000000-000002451-00011033-00649582-00001400-000000-000-000-N
+
+	02				Tipo de elección.
+	1977				Año del proceso electoral.
+	06				Mes del proceso electoral.
+	1				Número de vuelta (en procesos a una sola vuelta = 1) o Número de pregunta en Referéndum.
+	02				Código de la Comunidad Autónoma. En el caso de Total Nacional, llevará 99.
+	99				Código I.N.E. de la provincia o 99 si se trata de datos a nivel Total Comunidad o Total Nacional.
+	9				Código del Distrito Electoral que corresponda o 9 en datos a nivel Total Provincial, Comunidad o Nacional.
+	Aragón(fins posicio 64)		Nombre del ámbito territorial.
+	01169650			Población de derecho.
+	01894				Número de mesas.
+	00812881			Censo del I.N.E.
+	00000000			Censo de escrutinio.
+	00000000			Censo C.E.R.E. en escrutinio (Residentes Extranjeros).
+	00000000			Total votantes C.E.R.E. (Residentes Extranjeros).
+	00000000			Votantes del primer avance de participación.
+	00002451			Votantes del segundo avance de participación.
+	00011033			Votos en blanco.
+	00649582			Votos nulos.
+	00001400			Votos a candidaturas.
+	000000				Número de ‘Escaños’ a distribuir cuando el ámbito coincida con la circunscripción electoral o Total de ‘Escaños’ distribuidos en el ámbito. Ceros en el caso de que el ámbito sea inferior a la circunscripción electoral.
+	000				Votos afirmativos en Referéndum o ceros en otros procesos electorales.
+	000				Votos negativos en Referéndum o ceros en otros procesos electorales.
+	N				Datos oficiales (Si/No).
