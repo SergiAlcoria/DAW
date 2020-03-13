@@ -1,1 +1,3 @@
-Taula provincies --> treure el unique               Hecho
+Taula provincies --> NO treure el unique         
+Taula municipis --> -treure el unique
+                    -MODIFY COLUMN nom VARCHAR(100) NOT NULL;
