@@ -1,3 +1,12 @@
 Taula provincies --> NO treure el unique         
 Taula municipis --> -treure el unique
                     -MODIFY COLUMN nom VARCHAR(100) NOT NULL;
+                    
+Insertamos los datos de la tabla "candidatures" con partit_id = 0 en todas las candidaturas.
+Una vez tenemos todas las candidaturas en la base de datos haremos esta sentencia:
+
+UPDATE candidatures c
+  INNER JOIN partits p ON p.nom_llarg = c.nom_llarg
+SET c.partit_id = p.partit_id; 
+
+Así haremos que las candidaturas tengan el partit_id correspondiente con su partido de la tabla "partits"
