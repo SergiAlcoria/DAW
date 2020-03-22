@@ -11,5 +11,3 @@ SET c.partit_id = p.partit_id;
 
 Así haremos que las candidaturas tengan el partit_id correspondiente con su partido de la tabla "partits".
 
-En la tabla "comunitats_autonomes" deberemos de quitar el UNIQUE de codi_ine ya que todos serán 99 (en .DAT de provincias todos los que son 
-99 serán comunidades autónomas):
