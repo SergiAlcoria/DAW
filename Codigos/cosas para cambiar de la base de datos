@@ -9,4 +9,10 @@ UPDATE candidatures c
   INNER JOIN partits p ON p.nom_llarg = c.nom_llarg
 SET c.partit_id = p.partit_id; 
 
-Así haremos que las candidaturas tengan el partit_id correspondiente con su partido de la tabla "partits"
+Así haremos que las candidaturas tengan el partit_id correspondiente con su partido de la tabla "partits".
+
+En la tabla "comunitats_autonomes" deberemos de quitar el UNIQUE de codi_ine ya que todos serán 99 (en .DAT de provincias todos los que son 
+99 serán comunidades autónomas):
+
+ALTER TABLE comunitats_autonomes
+DROP INDEX uk_com_aut_codi_ine;
