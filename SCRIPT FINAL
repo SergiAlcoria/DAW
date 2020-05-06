@@ -1,0 +1,92 @@
+DROP SCHEMA IF EXISTS mydb;
+CREATE SCHEMA mydb;
+USE mydb;
+CREATE TABLE comunitats_autonomes (
+  comunitat_aut_id            CHAR(2) NOT NULL,
+  nom                         VARCHAR(45) NOT NULL,
+  CONSTRAINT PK_COMUNITATS_AUTONOMES PRIMARY KEY (comunitat_aut_id)
+  );
+  
+CREATE TABLE provincies (
+  provincia_id CHAR(2) NOT NULL,
+  nom VARCHAR(45) NOT NULL,
+  comunitat_aut_id CHAR(2) NOT NULL,
+  CONSTRAINT PK_PROVINCIES PRIMARY KEY (provincia_id),
+  CONSTRAINT FK_PROVINCIES_COMUNITATS_AUTONOMES FOREIGN KEY (comunitat_aut_id)
+    REFERENCES comunitats_autonomes (comunitat_aut_id)
+    );
+    
+CREATE TABLE municipis (
+  municipi_id CHAR(3) NOT NULL,
+  districte CHAR(2),
+  provincia_id CHAR(2) NOT NULL,
+  nom VARCHAR(50) NOT NULL,
+  CONSTRAINT PK_MUNICIPIS PRIMARY KEY (municipi_id,districte,provincia_id),
+  CONSTRAINT FK_MUNICIPIS_PROVINCIES FOREIGN KEY (provincia_id)
+    REFERENCES provincies (provincia_id)
+    );
+    
+CREATE TABLE eleccions (
+  eleccio_id  TINYINT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom VARCHAR(45) NOT NULL,
+  any YEAR GENERATED ALWAYS AS (YEAR(data)) STORED,
+  mes CHAR(2) GENERATED ALWAYS AS (MONTH(data)) STORED,
+  data DATE NOT NULL,
+  CONSTRAINT PK_ELECCIONS PRIMARY KEY (eleccio_id)
+  );
+
+CREATE TABLE partits (
+  partit_id SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL,
+  nom_llarg VARCHAR(100) NOT NULL,
+  nom_curt  VARCHAR(50) NOT NULL,
+  CONSTRAINT PK_PARTITS PRIMARY KEY (partit_id)
+  );
+  
+CREATE TABLE candidatures (
+  candidatura_id CHAR(6) NOT NULL,
+  eleccio_id  TINYINT UNSIGNED NOT NULL,
+  partit_id SMALLINT UNSIGNED NOT NULL,
+  nom_curt VARCHAR(50) NOT NULL,
+  nom_llarg VARCHAR(100) NOT NULL,
+  codi_acumulacio_provincia  CHAR(6),
+  codi_acumulacio_ca  CHAR(6),
+  CONSTRAINT PK_CANDIDATURES PRIMARY KEY (candidatura_id,eleccio_id),
+  CONSTRAINT FK_CANDIDATURES_ELECCIONS FOREIGN KEY (eleccio_id)
+    REFERENCES eleccions (eleccio_id),
+  CONSTRAINT FK_CANDIDATURES_PARTITS FOREIGN KEY (partit_id)
+    REFERENCES partits (partit_id)
+    );
+    
+CREATE TABLE eleccions_municipis (
+  eleccio_municipi_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  eleccio_id  TINYINT UNSIGNED NOT NULL,
+  municipi_id CHAR(3) NOT NULL,
+  districte CHAR(2) NOT NULL,
+  provincia_id CHAR(2) NOT NULL,
+  num_meses SMALLINT UNSIGNED,
+  poblacio INT UNSIGNED,
+  cens INT UNSIGNED,
+  vots_emesos INT UNSIGNED GENERATED ALWAYS AS (vots_candidatures + vots_blanc + vots_nuls) STORED,
+  vots_valids INT UNSIGNED GENERATED ALWAYS AS (vots_candidatures + vots_blanc) STORED,
+  vots_candidatures INT UNSIGNED,
+  vots_blanc INT UNSIGNED,
+  vots_nuls INT UNSIGNED,
+  CONSTRAINT PK_ELECCIONS_MUNICIPIS PRIMARY KEY (eleccio_municipi_id),
+  CONSTRAINT UK_ELECCIO_MUNICIPI UNIQUE KEY (eleccio_id, municipi_id, districte, provincia_id),
+  CONSTRAINT FK_ELECCIONS_MUNICIPIS_ELECCIONS FOREIGN KEY (eleccio_id)
+    REFERENCES eleccions (eleccio_id),
+  CONSTRAINT FK_ELECCIONS_MUNICIPIS_MUNICIPIS FOREIGN KEY (municipi_id,districte,provincia_id)
+    REFERENCES municipis (municipi_id,districte,provincia_id)
+  );
+  
+CREATE TABLE resultats (
+  resultat_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+  eleccio_id  TINYINT UNSIGNED NOT NULL,
+  candidatura_id  CHAR(6) NOT NULL,
+  vots  INT UNSIGNED NOT NULL,
+  CONSTRAINT PK_RESULTATS PRIMARY KEY (resultat_id),
+  CONSTRAINT FK_RESULTATS_ELECCIONS FOREIGN KEY (eleccio_id)
+    REFERENCES eleccions (eleccio_id),
+  CONSTRAINT FK_RESULTATS_CANDIDATURES FOREIGN KEY (candidatura_id)
+    REFERENCES candidatures (candidatura_id)
+    );
