@@ -1,0 +1,6 @@
+-- Consulta: saber vots de una candidatura a una provincia en unes eleccions 
+SELECT c.nom_llarg, COUNT(r.vots)
+  FROM candidatures c
+    INNER JOIN resultats r ON c.candidatura_id = r.candidatura_id
+    WHERE r.provincia.id = 1
+  GROUP BY c.nom_llarg;
