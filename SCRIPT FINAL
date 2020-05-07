@@ -83,10 +83,20 @@ CREATE TABLE resultats (
   resultat_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
   eleccio_id  TINYINT UNSIGNED NOT NULL,
   candidatura_id  CHAR(6) NOT NULL,
+  provincia_id  CHAR(2) NOT NULL,
+  municipi_id CHAR(3) NOT NULL,
   vots  INT UNSIGNED NOT NULL,
   CONSTRAINT PK_RESULTATS PRIMARY KEY (resultat_id),
   CONSTRAINT FK_RESULTATS_ELECCIONS FOREIGN KEY (eleccio_id)
     REFERENCES eleccions (eleccio_id),
   CONSTRAINT FK_RESULTATS_CANDIDATURES FOREIGN KEY (candidatura_id)
-    REFERENCES candidatures (candidatura_id)
+    REFERENCES candidatures (candidatura_id),
+  CONSTRAINT FK_RESULTATS_PROVINCIES FOREIGN KEY (provincia_id)
+    REFERENCES provincies (provincia_id),
+  CONSTRAINT FK_RESULTATS_MUNICIPIS FOREIGN KEY (municipi_id)
+    REFERENCES municipis (municipi_id) 
     );
+    
+CREATE INDEX IDX_CANDIDATURA_PROVINCIA_VOTS
+USING BTREE
+ON resultats (candidatura_id, provincia_id, vots);
